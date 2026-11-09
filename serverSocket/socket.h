@@ -18,7 +18,8 @@
 
 #endif // __linux__
 
-using namespace std;
+using std::string;
+using std::exception;
 
 
 
