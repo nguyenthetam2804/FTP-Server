@@ -1,5 +1,5 @@
+#include "severSocket/cli.h"
 #include "ftptcpserver.h"
-#include "cli.h"
 class ftpServerCLI : public CmdLineInterface{
     private:
     FtpTcpServer* ftpServer;
