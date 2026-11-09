@@ -3,6 +3,7 @@
 // Base class for generic TCP server
 #include "tcpserversocket.h"
 #include "session.h"
+#include <cstdint>
 
 class TCPServer
 {
