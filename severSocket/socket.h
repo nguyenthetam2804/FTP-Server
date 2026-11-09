@@ -18,8 +18,8 @@
 
 #endif // __linux__
 
-using std::string;
-using std::exception;
+using namespace std;
+
 
 
 class SocketException : public exception
