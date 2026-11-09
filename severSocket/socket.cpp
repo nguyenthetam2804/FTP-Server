@@ -26,7 +26,6 @@ typedef void raw_type; // Type used for raw data on this platform
 
 #include <errno.h> // For errno
 
-using namespace std;
 
 #ifdef _WIN32
 static bool initialized = false;

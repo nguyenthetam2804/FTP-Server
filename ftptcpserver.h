@@ -1,6 +1,6 @@
 #ifndef _FTP_TCP_SERVER_H_
 #define _FTP_TCP_SERVER_H_
-#include "tcpserver.h"
+#include "severSocket/tcpserver.h"
 class FtpTcpServer : public TCPServer{
     public:
     FtpTcpServer(unsigned short port = 21);
