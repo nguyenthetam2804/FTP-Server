@@ -13,7 +13,6 @@ void ftpServerCLI::initCmd(){
     addCmd("start",CLI_CAST(&ftpServerCLI::doStart));
     addCmd("stop",CLI_CAST(&ftpServerCLI::doStop));
     addCmd("status",CLI_CAST(&ftpServerCLI::doStatus));
-    addCmd("quit",CLI_CAST(&ftpServerCLI::doQuit));
     addCmd("help",CLI_CAST(&ftpServerCLI::doHelp));
 }
 void ftpServerCLI::doStart(string cmd_argv[], int cmd_argc){
