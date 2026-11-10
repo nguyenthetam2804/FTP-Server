@@ -8,18 +8,28 @@ FtpTcpServer::FtpTcpServer(unsigned short port):TCPServer(port){
 }
 FtpTcpServer::~FtpTcpServer(){}
 void FtpTcpServer::startNewSession(TcpSocket slave){
-    cout<<"[CONNECT] Client connected:"<<slave.getRemoteAddress()<<":"<<slave.getRemotePort()<<endl;
-    string welMesg = "220 Service ready\r\n";
-    slave.send(welMesg.c_str(), (int)welMesg.length());
-    bool session = true;
-    while(session){
-        int a = doFtp(slave);
-        if(a<=0){
-            session=false;
+    thread clientThread(&FtpTcpServer::handleClient, this, slave);
+    clientThread.detach();
+}
+void FtpTcpServer::handleClient(TcpSocket slave){
+    cout<<" [CONNECT] Client connected: "<<slave.getRemoteAddress()<<" : "<<slave.getRemotePort()<<endl;
+    string welMesg = " 220 Service ready\n";
+    try{
+        slave.send(welMesg.c_str(), (int)welMesg.length());
+        bool session =true;
+        while(session){
+            int a = doFtp(slave);
+            if(a<=0){
+                session =false;
+            }
         }
     }
+    catch(SocketException& e){
+        cerr<<e.what()<<"in handleClient()"<<endl;
+    }
     slave.close();
-    cout<<"Client disconnected"<<endl;
+    cout << "Client disconnected" << endl;
+    
 }
 int FtpTcpServer::doFtp(TcpSocket& slave){
     char buffer[1024];
