@@ -1,6 +1,8 @@
 #ifndef _FTP_TCP_SERVER_H_
 #define _FTP_TCP_SERVER_H_
 #include "severSocket/tcpserver.h"
+#include <thread>
+
 class FtpTcpServer : public TCPServer{
     public:
     FtpTcpServer(unsigned short port = 21);
@@ -8,5 +10,7 @@ class FtpTcpServer : public TCPServer{
     protected:
     void startNewSession(TcpSocket slave) override;
     int doFtp(TcpSocket& slave);
+    private:
+    void handleClient(TcpSocket slave);
 };
 #endif
