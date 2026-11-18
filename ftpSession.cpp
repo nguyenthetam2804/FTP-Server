@@ -8,8 +8,8 @@ ftpSession::ftpSession(TcpSocket& slave, ServerConfig* conf) : Session(slave, co
     val = new ftpSessionVal();
     val->status = STATUS_INIT;
     val->username = "";
-    response = "220 FTP Server ready\r\n";
-    slave.send(response);
+    string welMesg = "220 FTP Server ready\r\n";
+    slave.send(welMesg.c_str(),(int)welMesg.length());
 }
 
 ftpSession::~ftpSession() {
@@ -45,6 +45,9 @@ void ftpSession::doUser(string cmd_argv[], int cmd_argc) {
         return;
     }
     val->username = username;
+    cout << "[AUTH] USER " << username << endl;
+    string mesg = "331 Username okay\r\n";
+    slave.send(mesg.c_str(), (int)mesg.length());
 }
 void ftpSession::doPass(string cmd_argv[], int cmd_argc){
     cout<<"[AUTH] PASS ******" << endl;
