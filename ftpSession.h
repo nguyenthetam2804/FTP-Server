@@ -24,11 +24,10 @@ private:
 public:
     ftpSession(TcpSocket& slave, ServerConfig* conf);
     ~ftpSession();
-    const string& getResponse() const { return response; }
-
     void reset() override;
     void doUnknown(string cmd_argv[], int cmd_argc) override;
-    void doLogin(string cmd_argv[], int cmd_argc);
+    void doUser(string cmd_argv[], int cmd_argc);
+    void doPass(string cmd_argv[], int cmd_argc);
 };
 
 #endif // FTPSESSION_H

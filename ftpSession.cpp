@@ -22,39 +22,47 @@ void ftpSession::reset() {
 }
 
 void ftpSession::doUnknown(string cmd_argv[], int cmd_argc) {
-    response = "500 Unknown command\r\n";
-    slave.send(response);
+    string mesg = "500 Unknown command\r\n";
+    slave.send(mesg.c_str(),(int)mesg.length());
 }
 
-void ftpSession::doLogin(string cmd_argv[], int cmd_argc) {
-    if(cmd_argc < 4){
-        response ="501 Syntax error\r\n";
-        slave.send(response);
+void ftpSession::doUser(string cmd_argv[], int cmd_argc) {
+    if(cmd_argc < 2){
+        string mesg = "501 Syntax error\r\n";
+        slave.send(mesg.c_str(),(int)mesg.length());
         return;
     }
     if(val->status == STATUS_LOGGEDIN){
-        response = "530 Already logged in\r\n";
-        slave.send(response);
+        string mesg = "530 Already logged in\r\n";
+        slave.send(mesg.c_str(),(int)mesg.length());
         return;
     }
-    string username = cmd_argv[2];
+    string username = cmd_argv[1];
+    
     if(conf == nullptr || !conf->isValidUser(username)){
-        response ="530 User not found\r\n";
-        slave.send(response);
+        string mesg = "530 User not found\r\n";
+        slave.send(mesg.c_str(),(int)mesg.length());
         return;
     }
-    string password = cmd_argv[3];
+    val->username = username;
+}
+void ftpSession::doPass(string cmd_argv[], int cmd_argc){
+    cout<<"[AUTH] PASS ******" << endl;
+    if(cmd_argc < 2){
+        string mesg = "501 Syntax error\r\n";
+        slave.send(mesg.c_str(),(int)mesg.length());
+        return;
+    }
+    string password = cmd_argv[1];
     if(conf == nullptr ||!conf->authenticate(username,password)){
         val->status = STATUS_INIT;
         val->username = "";
         val->password = "";
-        response = "530 Login incorrect\r\n";
-        slave.send(response);
+        string mesg = "530 Login incorrect\r\n";
+        slave.send(mesg.c_str(),(int)mesg.length());
         return;
     }
-    val->username = username;
-    val->password = password;
     val->status = STATUS_LOGGEDIN;
-    response = "230 Login successful\r\n";
-    slave.send(response); 
+    string mesg = "230 Login successful\r\n";
+    slave.send(mesg.c_str(),(int)mesg.length());
 }
