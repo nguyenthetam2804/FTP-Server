@@ -7,6 +7,10 @@ class FtpTcpServer : public TCPServer{
     ~FtpTcpServer();
     protected:
     void startNewSession(TcpSocket slave) override;
+    void initCmd() override;
     int doFtp(TcpSocket& slave);
+    private:
+    int readCmd(TcpSocket& slave, string& cmdLine);
+    unsigned short parseCmd(const string& cmdLine, string cmd_argv[], int& cmd_argc);
 };
 #endif

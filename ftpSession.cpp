@@ -45,6 +45,9 @@ void ftpSession::doUser(string cmd_argv[], int cmd_argc) {
         return;
     }
     val->username = username;
+    cout << "[AUTH] USER " << username << endl;
+    string mesg = "331 Username okay\r\n";
+    slave.send(mesg.c_str(), (int)mesg.length());
 }
 void ftpSession::doPass(string cmd_argv[], int cmd_argc){
     cout<<"[AUTH] PASS ******" << endl;
@@ -54,7 +57,7 @@ void ftpSession::doPass(string cmd_argv[], int cmd_argc){
         return;
     }
     string password = cmd_argv[1];
-    if(conf == nullptr ||!conf->authenticate(username,password)){
+    if(conf == nullptr ||!conf->authenticate(val->username,password)){
         val->status = STATUS_INIT;
         val->username = "";
         val->password = "";
