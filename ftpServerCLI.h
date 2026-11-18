@@ -9,8 +9,8 @@ class ftpServerCLI : public CmdLineInterface{
     protected:
     void initCmd();
     private:
-    void doStart(string cmd_argv[], int cmd_ardc);
-    void doStop(string cmd_argv[], int cmd_ardc);
-    void doStatus(string cmd_argv[], int cmd_ardc);
-    void doHelp(string cmd_argv[], int cmd_ardc);
+    void doStart(string cmd_argv[], int cmd_argc);
+    void doStop(string cmd_argv[], int cmd_argc);
+    void doStatus(string cmd_argv[], int cmd_argc);
+    void doHelp(string cmd_argv[], int cmd_argc);
 };

@@ -22,10 +22,10 @@ void FtpTcpServer::startNewSession(TcpSocket slave){
     cout<<"Client disconnected"<<endl;
 }
 int FtpTcpServer::doFtp(TcpSocket& slave){
-    char buffer[1024];
+    char buffer[512];
     int byte_recv;
     try{
-        byte_recv = slave.recv(buffer,1024);
+        byte_recv = slave.recv(buffer,512);
     }
     catch(SocketException& e){
         byte_recv=-1;

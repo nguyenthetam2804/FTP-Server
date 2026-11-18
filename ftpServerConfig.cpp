@@ -34,8 +34,9 @@ bool ftpServerConfig::loadAccountsFromFile(const string& fileName){
             this->addAccount(newAcc);
             accountCount++;
         }
-        f.close();
-        return true;
+        
     }
+    f.close();
+    return true;
     
 }
