@@ -8,8 +8,8 @@ ftpSession::ftpSession(TcpSocket& slave, ServerConfig* conf) : Session(slave, co
     val = new ftpSessionVal();
     val->status = STATUS_INIT;
     val->username = "";
-    response = "220 FTP Server ready\r\n";
-    slave.send(response);
+    string welMesg = "220 FTP Server ready\r\n";
+    slave.send(welMesg.c_str(),(int)welMesg.length());
 }
 
 ftpSession::~ftpSession() {

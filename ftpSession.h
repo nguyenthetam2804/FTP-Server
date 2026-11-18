@@ -19,7 +19,6 @@ struct ftpSessionVal {
 class ftpSession : public Session {
 private:
     ftpSessionVal* val;
-    string response;
 
 public:
     ftpSession(TcpSocket& slave, ServerConfig* conf);
