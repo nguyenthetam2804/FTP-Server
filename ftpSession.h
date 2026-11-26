@@ -2,6 +2,7 @@
 #define FTPSESSION_H
 #include "ftpServerConfig.h"
 #include "severSocket/session.h"
+#include "severSocket/tcpserversocket.h"
 #include <string>
 #include <cstdint>
 
@@ -19,6 +20,9 @@ struct ftpSessionVal {
 class ftpSession : public Session {
 private:
     ftpSessionVal* val;
+    string currentUserRoot; // Đường dẫn thư mục riêng của user đang đăng nhập
+    TcpServerSocket* dataMaster; // Socket lắng nghe kết nối dữ liệu (PASV)
+    bool isPasvMode;
 
 public:
     ftpSession(TcpSocket& slave, ServerConfig* conf);
@@ -27,6 +31,8 @@ public:
     void doUnknown(string cmd_argv[], int cmd_argc) override;
     void doUser(string cmd_argv[], int cmd_argc);
     void doPass(string cmd_argv[], int cmd_argc);
+    void doPasv(string cmd_argv[], int cmd_argc);
+    void doList(string cmd_argv[], int cmd_argc);
 };
 
 #endif // FTPSESSION_H
