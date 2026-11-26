@@ -17,6 +17,8 @@ FtpTcpServer::~FtpTcpServer(){
 void FtpTcpServer::initCmd(){
     addCmd("USER",FUNC_CAST(&ftpSession::doUser));
     addCmd("PASS",FUNC_CAST(&ftpSession::doPass));
+    addCmd("PASV", FUNC_CAST(&ftpSession::doPasv));
+    addCmd("LIST", FUNC_CAST(&ftpSession::doList));
 }
 int FtpTcpServer::readCmd(TcpSocket& slave, string& cmdLine){
     try{
